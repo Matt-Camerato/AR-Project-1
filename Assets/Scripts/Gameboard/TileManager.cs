@@ -37,9 +37,9 @@ public class TileManager : MonoBehaviour
         {
             transform.localPosition += Vector3.up * Time.deltaTime * speed * 0.7f; //make tile rise
 
-            if (transform.localPosition.y >= 0.05f) 
+            if (transform.localPosition.y >= 0.035f) 
             {
-                transform.localPosition = new Vector3(transform.localPosition.x, 0.05f, transform.localPosition.z); //make sure all tiles are at same height in finished position
+                transform.localPosition = new Vector3(transform.localPosition.x, 0.035f, transform.localPosition.z); //make sure all tiles are at same height in finished position
 
                 hasRisen = true;
             }

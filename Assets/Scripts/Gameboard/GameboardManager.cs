@@ -6,7 +6,7 @@ public class GameboardManager : MonoBehaviour
 {
     [Header("Gameboard References")]
     [SerializeField] private GameObject tilePrefab;
-    [SerializeField] private GameObject playerCubePrefab;
+    [SerializeField] private GameObject attackCubePrefab;
 
     [HideInInspector] public GameObject[,] tiles;
 
@@ -35,9 +35,14 @@ public class GameboardManager : MonoBehaviour
         }
     }
 
-    //called by players to attack specific tiles
-    public static void SpawnPlayerCube(int x, int y, Player attacker)
+    //called by gameplay manager to spawn attacks at specific tiles
+    public GameObject SpawnAttackCube(TileManager tile, Player attacker)
     {
+        GameObject newCube = Instantiate(attackCubePrefab, Vector3.zero, transform.rotation, tile.transform);
+        float yValue = -0.07f - (tile.currentCubeCount * 0.09f); //this equation determines what y level the cube should spawn at based on number of cubes under current tile
+        newCube.transform.localPosition = new Vector3(0, yValue, 0);
+        newCube.transform.GetChild(0).GetComponent<MeshRenderer>().materials[0].color = attacker.color; //set new cube border color to attacker's color
 
+        return newCube; //return new cube so it can be added to list of spawned cubes (which can all be deleted before next player's recap)
     }
 }

@@ -6,12 +6,16 @@ public class Player
 {
     public int playerNum;
     public Color color;
-    public Vector2 position;
+    public Vector2Int position;
     public GameObject gamePiece;
     public int health = 3;
 
     public TileManager destination;
     public List<TileManager> attacks = new List<TileManager>();
+
+    //variables used for attack recap phase
+    public bool spawnedAttacks;
+    public bool attacksDoneMoving;
 
     public List<Vector2> PossibleMoves()
     {

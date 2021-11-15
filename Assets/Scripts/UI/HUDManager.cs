@@ -13,11 +13,13 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private Transform heartIcons;
     [SerializeField] private Sprite fullHeartSprite;
     [SerializeField] private Sprite emptyHeartSprite;
+    
+    public GameObject damagePanel;
 
     [HideInInspector] public GameplayManager gameplayManager;
-    [HideInInspector] public bool currentPlayerReady; 
+    [HideInInspector] public bool currentPlayerReady;
 
-    private Animator anim;
+    [HideInInspector] public Animator anim;
 
     private void Start()
     {
@@ -63,9 +65,41 @@ public class HUDManager : MonoBehaviour
         }
     }
 
-    public void EndRecapEvent()
+    public void UpdateHealthIcons(int health)
     {
-        anim.SetTrigger("Move"); //trigger move startup animation
+        if (health == 3)
+        {
+            foreach (Transform child in heartIcons)
+            {
+                child.GetComponent<Image>().sprite = fullHeartSprite;
+            }
+        }
+        else if (health == 2)
+        {
+            heartIcons.GetChild(0).GetComponent<Image>().sprite = fullHeartSprite;
+            heartIcons.GetChild(1).GetComponent<Image>().sprite = fullHeartSprite;
+            heartIcons.GetChild(2).GetComponent<Image>().sprite = emptyHeartSprite;
+        }
+        else if (health == 1)
+        {
+            heartIcons.GetChild(0).GetComponent<Image>().sprite = fullHeartSprite;
+            heartIcons.GetChild(1).GetComponent<Image>().sprite = emptyHeartSprite;
+            heartIcons.GetChild(2).GetComponent<Image>().sprite = emptyHeartSprite;
+        }
+        else
+        {
+            foreach (Transform child in heartIcons)
+            {
+                child.GetComponent<Image>().sprite = emptyHeartSprite;
+            }
+        }
+    }
+
+    public void OkayButton()
+    {
+        currentPlayerReady = false; //this skips rest of player's turn since they died in recap
+
+        anim.SetTrigger("Okay");
     }
 
     public void MoveTutorialEvent()
@@ -148,6 +182,8 @@ public class HUDManager : MonoBehaviour
             }
         }
 
-        PassScreen.SetActive(true); //turn on pass screen when screen fades to black so next player can ready up before playing
+        if(gameplayManager.roundNum > 1) { gameplayManager.ResetGameboard(); } //if its the end of the 2nd round or later, gameboard is reset so recap phase can be played for next player
+
+        if (gameplayManager.currentPlayer.health != 0) { PassScreen.SetActive(true); } //turn on pass screen when screen fades to black so next player can ready up before playing (only if player isn't dead)
     }
 }

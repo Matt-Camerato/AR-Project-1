@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 831107341928888877}
   - component: {fileID: 6092562954849210408}
   - component: {fileID: 5965972648569663456}
+  - component: {fileID: 8841196233759305466}
   m_Layer: 0
   m_Name: GamePrefab
   m_TagString: Untagged
@@ -48,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 1543943586665723680, guid: 4dacbe7464ac84f408b0cc1fd6e48dfe, type: 3}
-  playerCubePrefab: {fileID: 0}
+  attackCubePrefab: {fileID: 2874626700864427796, guid: 4baf43145ca9a3f41a28d4f8b0fa3af7, type: 3}
 --- !u!114 &5965972648569663456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,6 +66,7 @@ MonoBehaviour:
   turnNum: 1
   maxAttackNum: 3
   playerPiecePrefab: {fileID: 6004773127301175484, guid: a60c601c2d2550045aa81f2ef19e9292, type: 3}
+  damageParticlesPrefab: {fileID: 8727810418711268562, guid: e46b5622cbec77d41af0d76dd5efd13e, type: 3}
   playerColors:
   - {r: 0.8113208, g: 0.47071913, b: 0.7252742, a: 1}
   - {r: 0.8113208, g: 0, b: 0, a: 1}
@@ -79,10 +81,24 @@ MonoBehaviour:
   UI_Canvas: {fileID: 0}
   HUD_Canvas: {fileID: 0}
   confirmMoveButton: {fileID: 0}
-  confirmAttacksButtons: {fileID: 0}
+  confirmAttacksButton: {fileID: 0}
   gestureInteractor: {fileID: 0}
   startedGame: 0
   currentPossibleMoves: []
+  destinationDetermined: 0
+  attacksDetermined: 0
+--- !u!114 &8841196233759305466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831107341928888878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b92cd1db3f5b6458c933c3fba476d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1804485907488168895
 GameObject:
   m_ObjectHideFlags: 0
